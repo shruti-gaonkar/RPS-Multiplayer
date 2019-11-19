@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GifTastic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body class="d-flex flex-column">
+    <main id="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <form id="frm" class="m-auto">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="categoryId">&nbsp;</label>
+                            <select id="categoryId" class="form-control">
+                                <option value="cartoon" selected>Cartoon</option>
+                                <option value="movie">Movie</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="nameId">&nbsp;</label>
+                            <input type="text" class="form-control" id="nameId" placeholder="Add Cartoon/Movie">
+                        </div>
+                        <div class="col-md-2" style="margin-top:35px;">
+                            <button id="btnSubmit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="col-md-3" style="margin-top:35px;">
+                            <button id="btnFav" class="btn btn-light">My Favourites</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Topic Div or Fav Movies Div-->
+            <div class="row">
+                <div id="topic_div" class="col-12 mt-3"></div>
+            </div>
+
+            <!-- Images Div -->
+            <div class="row">
+                <div id="images_div" class="col-12"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="sticky-footer" class="py-3 footer">
+        <div class="container text-center">
+            <small>Copyright @
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+            </small>
+        </div>
+    </footer>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

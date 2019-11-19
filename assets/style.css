@@ -1,0 +1,82 @@
+/* Bootstrap css overwritten*/
+html,
+body {
+    height: 100%;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 18px;
+    color: #696969;
+    background-image: url("../../assets/images/gray_jean.png");
+}
+
+h1{
+    font-family: Georgia, Times, "Times New Roman", serif;
+    font-size: 3rem;
+    color: #C6CDDA;
+    font-weight: bold; 
+}
+
+/* End - Bootstrap css overwritten*/
+
+.nav-header{
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color:#D1C8C8;
+  line-height: 1.7em;
+}
+
+#main-content {
+    flex: 1 0 auto;
+}
+
+.page-content{
+    border: 2px solid #000;
+    background-color: #55617C;
+    margin:0 auto;
+    font-size:1.5rem;
+    overflow: hidden;
+}
+
+.option_text{
+  font-size:1.8rem;
+  font-weight:bold;
+  width:50%;
+  margin:0 auto;
+}
+
+img{
+  width: 300px;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.view {
+  float: left;
+  border: 10px solid #fff;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  box-shadow: 1px 1px 2px #e6e6e6;
+}
+
+.heart {
+	color:red;
+}
+
+.clearfix{
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+#sticky-footer {
+    flex-shrink: none;
+}
+
+.footer {
+    background-color: #000;
+    color: #fff;
+    font-size: 0.8rem;
+}
