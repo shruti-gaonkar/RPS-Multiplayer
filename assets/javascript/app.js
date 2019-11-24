@@ -64,20 +64,25 @@ connectionsRef.on("value", function (snap) {
     //console.log("1===" + player1Online);
     $("#player_msg").text("Hi " + newPlayer.name + "! You are player 1.");
 });*/
-
+var player1Choice, player2Choice;
 playersRef.child(1).on("value", function (snapshot) {
+    player1Name = '';
     if (snapshot.val()) {
         player1Name = snapshot.val().name;
         player1Online = snapshot.val().status;
+        player1Choice = snapshot.val().choice;
+
     }
 }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
 });
 
 playersRef.child(2).on("value", function (snapshot) {
+    player2Name = '';
     if (snapshot.val()) {
         player2Name = snapshot.val().name;
         player2Online = snapshot.val().status;
+        player2Choice = snapshot.val().choice;
     }
 
 }, function (errorObject) {
@@ -139,10 +144,10 @@ function showForm() {
 function showWelcomeMessage() {
     $(".pre-login, .pending-login, .selections, .stats, .no-choice, .choice-made").hide();
     $(".post-login").show();
+    // console.log("playerNumber===" + playerNumber);
     $("#player-name-display").text(player1Obj.name);
     $("#player-number").text(playerNumber);
 }
-
 
 
 playersRef.on("value", function (snapshot) {
@@ -155,11 +160,11 @@ playersRef.on("value", function (snapshot) {
 
     var playerExists = snapshot.child(playerNumber).exists();
     var oPlayerExists = snapshot.child(otherPlayerNumber).exists();
-    var playerChoice = snapshot.child(playerNumber).val().choice;
-    var oPlayerChoice = snapshot.child(otherPlayerNumber).val().choice;
-    if (oPlayerChoice && oPlayerChoice) {
+    //var playerChoice = snapshot.child(playerNumber).val().choice;
+    //var oPlayerChoice = snapshot.child(otherPlayerNumber).val().choice;
+    if (player1Choice && player2Choice) {
 
-    } else if (!playerChoice && oPlayerChoice) {
+    } else if (!player1Choice && player2Choice) {
         $(".p" + playerNumber + "-selections").show();
         $(".p" + otherPlayerNumber + "-choice-made").show();
         $(".stats").show();
