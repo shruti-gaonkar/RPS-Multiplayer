@@ -40,7 +40,8 @@ var player2Obj = {
     status: false
 }
 
-var player1Online, player2Online, playerNumber;
+var player1Online, player2Online, playerNumber, otherPlayerNumber,
+    player1Name, player2Name;
 
 connectedRef.on("value", function (snap) {
     if (snap.val()) {
@@ -56,15 +57,44 @@ connectionsRef.on("value", function (snap) {
 
 });
 
-playersRef.child(1).child('status').on('value', function (ss) {
+/*playersRef.child(1).on('child_added', function (ss) {
+    var newPlayer = ss.val();
+    console.log(newPlayer)
+    //player1Online = newPlayer.status;
+    //console.log("1===" + player1Online);
+    $("#player_msg").text("Hi " + newPlayer.name + "! You are player 1.");
+});*/
+
+playersRef.child(1).on("value", function (snapshot) {
+    if (snapshot.val()) {
+        player1Name = snapshot.val().name;
+        player1Online = snapshot.val().status;
+    }
+}, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+});
+
+playersRef.child(2).on("value", function (snapshot) {
+    if (snapshot.val()) {
+        player2Name = snapshot.val().name;
+        player2Online = snapshot.val().status;
+    }
+
+}, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+});
+
+/*playersRef.child(1).child('status').on('value', function (ss) {
     player1Online = ss.val();
-    console.log("1===" + player1Online);
+    //console.log("1===" + player1Online);
+    console.log("1===" + player1Online + "==" + player2Online);
 });
 
 playersRef.child(2).child('status').on('value', function (ss) {
     player2Online = ss.val();
-    console.log("2===" + player2Online);
-});
+    //console.log("2===" + player2Online);
+    console.log("1===" + player1Online + "==" + player2Online);
+});*/
 
 $("#btnSubmit").on("click", function (event) {
     event.preventDefault();
@@ -75,11 +105,11 @@ $("#btnSubmit").on("click", function (event) {
 
     if (!player1Online) {
         playerNumber = 1;
-        console.log(111);
+        otherPlayerNumber = 2;
     }
     else if (!player2Online) {
         playerNumber = 2;
-        console.log(222);
+        otherPlayerNumber = 1;
     }
     else
         playerNumber = null;
@@ -89,4 +119,72 @@ $("#btnSubmit").on("click", function (event) {
 });
 
 
+$(".choice").on("click", function () {
+    if (!playerNumber) return;
 
+    player1Obj.choice = this.id;
+    database.ref("/players/" + playerNumber).set(player1Obj);
+
+    $(".p" + playerNumber + "-selections").hide();
+    $(".p" + playerNumber + "-choice-reveal").text(this.id).show();
+    $(".p" + otherPlayerNumber + "-no-choice").show();
+    $(".stats").show();
+});
+
+function showForm() {
+    $(".post-login, .pending-login, .selections, .stats, .no-choice, .choice-made").hide();
+    $(".pre-login").show();
+}
+
+function showWelcomeMessage() {
+    $(".pre-login, .pending-login, .selections, .stats, .no-choice, .choice-made").hide();
+    $(".post-login").show();
+    $("#player-name-display").text(player1Obj.name);
+    $("#player-number").text(playerNumber);
+}
+
+
+
+playersRef.on("value", function (snapshot) {
+    $("#player-1").text(player1Name || "Waiting for Player 1");
+    $("#player-2").text(player2Name || "Waiting for Player 2");
+
+    if (playerNumber) {
+        showWelcomeMessage();
+    }
+
+    var playerExists = snapshot.child(playerNumber).exists();
+    var oPlayerExists = snapshot.child(otherPlayerNumber).exists();
+    var playerChoice = snapshot.child(playerNumber).val().choice;
+    var oPlayerChoice = snapshot.child(otherPlayerNumber).val().choice;
+    if (oPlayerChoice && oPlayerChoice) {
+
+    } else if (!playerChoice && oPlayerChoice) {
+        $(".p" + playerNumber + "-selections").show();
+        $(".p" + otherPlayerNumber + "-choice-made").show();
+        $(".stats").show();
+        $(".p" + playerNumber + "-no-choice").hide();
+    } /*else if (playerChoice && !oPlayerChoice) {
+        //$(".p" + playerNumber + "-choice-made").show();
+        //$(".p" + otherPlayerNumber + "-selections").show();
+        $(".stats").show();
+        $(".p" + playerNumber + "-no-choice").hide();
+    } else if (!playerChoice && oPlayerChoice) {
+        $(".p" + otherPlayerNumber + "-choice-made").show();
+        $(".p" + otherPlayerNumber + "-no-choice").hide();
+    } */else if (playerExists && oPlayerExists) {
+        $(".p" + playerNumber + "-selections").show();
+        $(".p" + otherPlayerNumber + "-no-choice").show();
+    }
+
+    // if(snapshot.child(playerNumber).val().choice)
+    /*if (player1Name && player2Name) {
+        $(".selections").show();
+    }*/
+}, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+});
+
+if (!playerNumber) {
+    showForm();
+}
