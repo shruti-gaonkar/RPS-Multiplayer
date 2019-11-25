@@ -146,7 +146,7 @@ $(".choice").on("click", function () {
 $("#chat-btn").on("click", function (event) {
     event.preventDefault();
     chatRef.push({
-        userId: playerNumber,
+        playerId: playerNumber,
         name: player1Obj.name,
         text: $("#chat").val().trim()
     });
@@ -291,6 +291,10 @@ playersRef.on("value", function (snapshot) {
         }
     }
 
+    if (!player1Online && !player2Online) {
+        chatRef.remove();
+        $("#chat-log").empty();
+    }
     // if(snapshot.child(playerNumber).val().choice)
     /*if (player1Name && player2Name) {
         $(".selections").show();
@@ -299,11 +303,23 @@ playersRef.on("value", function (snapshot) {
     console.log("The read failed: " + errorObject.code);
 });
 
+playersRef.on("child_removed", function (snapshot) {
+    chatRef.push({
+        name: "auto",
+        text: snapshot.val().name + " left"
+    });
+
+    if (!player1Online && !player2Online) {
+        chatRef.remove();
+        $("#chat-log").empty();
+    }
+});
+
 chatRef.on('child_added', function (snapshot) {
     var ssObject = snapshot.val();
     var chatDiv = $("<div>");
-    //console.log(ssObject.userId + "===" + playerNumber);
-    if (ssObject.userId == playerNumber) {
+    //console.log(ssObject.playerId + "===" + playerNumber);
+    if (ssObject.playerId == playerNumber) {
         chatDiv.addClass("chat-red-class");
     } else {
         chatDiv.addClass("chat-blue-class");
