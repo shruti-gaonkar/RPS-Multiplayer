@@ -64,13 +64,15 @@ connectionsRef.on("value", function (snap) {
     //console.log("1===" + player1Online);
     $("#player_msg").text("Hi " + newPlayer.name + "! You are player 1.");
 });*/
-var player1Choice, player2Choice;
+var player1Choice, player2Choice, timerId, player1Wins, player1Losses, player2Wins, player2Losses;
 playersRef.child(1).on("value", function (snapshot) {
     player1Name = '';
     if (snapshot.val()) {
         player1Name = snapshot.val().name;
         player1Online = snapshot.val().status;
         player1Choice = snapshot.val().choice;
+        player1Wins = snapshot.val().wins;
+        player1Losses = snapshot.val().losses;
 
     }
 }, function (errorObject) {
@@ -83,6 +85,8 @@ playersRef.child(2).on("value", function (snapshot) {
         player2Name = snapshot.val().name;
         player2Online = snapshot.val().status;
         player2Choice = snapshot.val().choice;
+        player2Wins = snapshot.val().wins;
+        player2Losses = snapshot.val().losses;
     }
 
 }, function (errorObject) {
@@ -132,7 +136,10 @@ $(".choice").on("click", function () {
 
     $(".p" + playerNumber + "-selections").hide();
     $(".p" + playerNumber + "-choice-reveal").text(this.id).show();
-    $(".p" + otherPlayerNumber + "-no-choice").show();
+    if (!player1Choice || !player2Choice) {
+        $(".p" + otherPlayerNumber + "-no-choice").show();
+    }
+    $(".p" + otherPlayerNumber + "-choice-made").hide();
     $(".stats").show();
 });
 
@@ -155,7 +162,8 @@ function getWinner(p1Choice, p2Choice) {
     var rockMsg = 'Rock wins against scissor';
     var message;
     var winner;
-    returnArr = new Array();
+    var player1win = false;
+    //returnArr = new Array();
     message = "It's a draw";
     winner = "";
 
@@ -165,7 +173,7 @@ function getWinner(p1Choice, p2Choice) {
     if (userGuess == 'rock' && computerGuess == 'scissors') {
         message = rockMsg;
         winner = player1Name;
-        player1Obj.win++;
+        player1win = true;
     } else if (userGuess == 'scissors' && computerGuess == 'rock') {
         message = rockMsg;
         winner = player2Name;
@@ -175,6 +183,7 @@ function getWinner(p1Choice, p2Choice) {
     if (userGuess == 'paper' && computerGuess == 'rock') {
         message = paperMsg;
         winner = player1Name;
+        player1win = true;
     } else if (userGuess == 'rock' && computerGuess == 'paper') {
         message = paperMsg;
         winner = player2Name;
@@ -184,16 +193,42 @@ function getWinner(p1Choice, p2Choice) {
     if (userGuess == 'scissors' && computerGuess == 'paper') {
         message = scissorMsg;
         winner = player1Name;
+        player1win = true;
     } else if (userGuess == 'paper' && computerGuess == 'scissors') {
         message = scissorMsg;
         winner = player2Name;
     }
 
-    returnArr['msg'] = message;
-    returnArr['winner'] = winner + " wins";
+    if (player1win === true) {
+        if (playerNumber == "1") {
+            player1Obj.wins++;
+        } else {
+            player1Obj.losses++;
+        }
+    } else {
+        if (playerNumber == "2") {
+            player1Obj.wins++;
+        } else {
+            player1Obj.losses++;
+        }
+    }
+
+    //returnArr['msg'] = message;
+    //returnArr['winner'] = winner + " wins";
 
     $("#results").html(message + "<br />" + winner + " wins");
-    return returnArr;
+
+    timerId = setTimeout(clearResults, 3000);
+}
+
+function clearResults() {
+    clearTimeout(timerId);
+    $(".choice-reveal").text('').hide();
+    $("#results").empty();
+
+    player1Obj.choice = "";
+    console.log(player1Obj);
+    database.ref("/players/" + playerNumber).set(player1Obj);
 }
 
 playersRef.on("value", function (snapshot) {
@@ -209,13 +244,21 @@ playersRef.on("value", function (snapshot) {
     //var playerChoice = snapshot.child(playerNumber).val().choice;
     //var oPlayerChoice = snapshot.child(otherPlayerNumber).val().choice;
     if (player1Choice && player2Choice) {
-        getWinner(player1Choice, player2Choice)
-    } else if (!player1Choice && player2Choice) {
+        getWinner(player1Choice, player2Choice);
+        $(".p1-choice-reveal").text(player1Choice).show();
+        $(".p2-choice-reveal").text(player2Choice).show();
+        //setTimeout()
+    } else if ((!player1Choice && player2Choice) || (player1Choice && !player2Choice)) {
+        console.log(2222222222222);
         $(".p" + playerNumber + "-selections").show();
         $(".p" + otherPlayerNumber + "-choice-made").show();
+    }/* else if (player1Choice && !player2Choice) {
+        console.log(2222222222222);
+        $(".p" + otherPlayerNumber + "-choice-made").show();
+        $(".p" + playerNumber + "-selections").show();
         $(".stats").show();
-        $(".p" + playerNumber + "-no-choice").hide();
-    } /*else if (playerChoice && !oPlayerChoice) {
+    }*/
+    /*else if (playerChoice && !oPlayerChoice) {
         //$(".p" + playerNumber + "-choice-made").show();
         //$(".p" + otherPlayerNumber + "-selections").show();
         $(".stats").show();
@@ -226,6 +269,15 @@ playersRef.on("value", function (snapshot) {
     } */else if (playerExists && oPlayerExists) {
         $(".p" + playerNumber + "-selections").show();
         $(".p" + otherPlayerNumber + "-no-choice").show();
+
+        if (player1Obj.wins > 0 || player1Obj.losses > 0) {
+            $(".stats").show();
+
+            $("#p1-wins").text(player1Wins);
+            $("#p1-losses").text(player1Losses);
+            $("#p2-wins").text(player2Wins);
+            $("#p2-losses").text(player2Losses);
+        }
     }
 
     // if(snapshot.child(playerNumber).val().choice)
