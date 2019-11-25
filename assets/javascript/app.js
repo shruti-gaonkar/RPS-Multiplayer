@@ -149,6 +149,52 @@ function showWelcomeMessage() {
     $("#player-number").text(playerNumber);
 }
 
+function getWinner(p1Choice, p2Choice) {
+    var scissorMsg = 'Scissor wins against paper';
+    var paperMsg = 'Paper wins against rock';
+    var rockMsg = 'Rock wins against scissor';
+    var message;
+    var winner;
+    returnArr = new Array();
+    message = "It's a draw";
+    winner = "";
+
+    userGuess = p1Choice;
+    computerGuess = p2Choice;
+    // rock and scissors
+    if (userGuess == 'rock' && computerGuess == 'scissors') {
+        message = rockMsg;
+        winner = player1Name;
+        player1Obj.win++;
+    } else if (userGuess == 'scissors' && computerGuess == 'rock') {
+        message = rockMsg;
+        winner = player2Name;
+    }
+
+    // paper and rock
+    if (userGuess == 'paper' && computerGuess == 'rock') {
+        message = paperMsg;
+        winner = player1Name;
+    } else if (userGuess == 'rock' && computerGuess == 'paper') {
+        message = paperMsg;
+        winner = player2Name;
+    }
+
+    // scissor and paper
+    if (userGuess == 'scissors' && computerGuess == 'paper') {
+        message = scissorMsg;
+        winner = player1Name;
+    } else if (userGuess == 'paper' && computerGuess == 'scissors') {
+        message = scissorMsg;
+        winner = player2Name;
+    }
+
+    returnArr['msg'] = message;
+    returnArr['winner'] = winner + " wins";
+
+    $("#results").html(message + "<br />" + winner + " wins");
+    return returnArr;
+}
 
 playersRef.on("value", function (snapshot) {
     $("#player-1").text(player1Name || "Waiting for Player 1");
@@ -163,7 +209,7 @@ playersRef.on("value", function (snapshot) {
     //var playerChoice = snapshot.child(playerNumber).val().choice;
     //var oPlayerChoice = snapshot.child(otherPlayerNumber).val().choice;
     if (player1Choice && player2Choice) {
-
+        getWinner(player1Choice, player2Choice)
     } else if (!player1Choice && player2Choice) {
         $(".p" + playerNumber + "-selections").show();
         $(".p" + otherPlayerNumber + "-choice-made").show();
