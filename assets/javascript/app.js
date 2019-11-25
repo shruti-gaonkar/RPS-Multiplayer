@@ -143,6 +143,17 @@ $(".choice").on("click", function () {
     $(".stats").show();
 });
 
+$("#chat-btn").on("click", function (event) {
+    event.preventDefault();
+    chatRef.push({
+        userId: playerNumber,
+        name: player1Obj.name,
+        text: $("#chat").val().trim()
+    });
+
+    $("#chat").val("");
+});
+
 function showForm() {
     $(".post-login, .pending-login, .selections, .stats, .no-choice, .choice-made").hide();
     $(".pre-login").show();
@@ -286,6 +297,18 @@ playersRef.on("value", function (snapshot) {
     }*/
 }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
+});
+
+chatRef.on('child_added', function (snapshot) {
+    var ssObject = snapshot.val();
+    var chatDiv = $("<div>");
+    if (ssObject.userId == playerNumber) {
+        chatDiv.addClass("chat-red-class");
+    } else {
+        chatDiv.addClass("chat-blue-class");
+    }
+    chatDiv.text(ssObject.name + ": " + ssObject.text);
+    $("#chat-log").append(chatDiv);
 });
 
 if (!playerNumber) {
