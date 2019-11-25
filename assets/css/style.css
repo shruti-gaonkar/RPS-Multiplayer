@@ -65,6 +65,14 @@ img{
 	color:red;
 }
 
+.chat-red-class{
+  color:red;
+}
+
+.chat-blue-class{
+  color:blue;
+}
+
 .clearfix{
   content: " ";
   display: block;

@@ -302,6 +302,7 @@ playersRef.on("value", function (snapshot) {
 chatRef.on('child_added', function (snapshot) {
     var ssObject = snapshot.val();
     var chatDiv = $("<div>");
+    //console.log(ssObject.userId + "===" + playerNumber);
     if (ssObject.userId == playerNumber) {
         chatDiv.addClass("chat-red-class");
     } else {
