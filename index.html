@@ -28,23 +28,9 @@
     </header>
     <main id="main-content">
         <div class="container page-content">
-            <!--div class="col-xs-12 pre-connection">
-                Connecting...
-            </div-->
+            <div id="connected-viewers" role="alert"></div>
 
             <div class="row pre-login">
-                <!--form id="frm" class="m-auto">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nameId">Enter your name</label>
-                            <input type="text" class="form-control" id="nameId" placeholder="">
-                        </div>
-                        <div class="col-md-6" style="margin-top:35px;">
-                            <button id="btnSubmit" class="btn btn-warning">Submit</button>
-                        </div>
-                    </div>
-                </form-->
-
                 <form class="form-inline m-auto p-3">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="nameId" class="sr-only">Enter your name</label>
@@ -62,9 +48,6 @@
                         <span id="player-name-display"></span>! You are player
                         <span id="player-number"></span>
                     </h2>
-                </div>
-                <div class="col-xs-12 pending-login">
-                    There are already 2 players playing, you can play when one player quits.
                 </div>
             </div>
             <div class="row">
@@ -150,7 +133,6 @@
                 </div>
             </div>
     </main>
-    <span id="connected-viewers"></span>
     <footer id="sticky-footer" class="py-3 footer">
         <div class="container text-center">
             <small>Copyright @
