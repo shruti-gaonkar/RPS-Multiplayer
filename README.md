@@ -12,11 +12,11 @@ Description
 
   * After each win or lose, the results clear in few seconds and the player can play again.
 
-  * The game track each player's wins and losses.
+  * The game tracks each player's wins and losses.
 
-  * There is a chat functionality for both the players to send messages during the game. If one player get disconnected it shows a message to the other player.
+  * There is a chat functionality for both the players to send messages during the game. If one player gets disconnected it shows a message to the other player.
 
-  * If there are more than 2 players it shows a message to the new user that he cannot play
+  * If there are more than 2 players it shows a message to the new user that he cannot play.
 
 Technologies
 HTML, CSS, JQuery, Javascript, Firebase
