@@ -175,9 +175,7 @@ function getWinner(p1Choice, p2Choice) {
     var message;
     var winner;
     var player1win = false;
-    //returnArr = new Array();
-    message = "It's a draw";
-    winner = "";
+    message = "It's a draw!!";
 
     userGuess = p1Choice;
     computerGuess = p2Choice;
@@ -211,27 +209,39 @@ function getWinner(p1Choice, p2Choice) {
         winner = player2Name;
     }
 
-    if (player1win === true) {
-        if (playerNumber == "1") {
-            player1Obj.wins++;
+    if (winner) {
+        if (player1win === true) {
+            if (playerNumber == "1") {
+                player1Obj.wins++;
+            } else {
+                player1Obj.losses++;
+            }
         } else {
-            player1Obj.losses++;
+            if (playerNumber == "2") {
+                player1Obj.wins++;
+            } else {
+                player1Obj.losses++;
+            }
         }
-    } else {
-        if (playerNumber == "2") {
-            player1Obj.wins++;
-        } else {
-            player1Obj.losses++;
-        }
+        message += "<br />" + winner + " wins";
     }
 
     //returnArr['msg'] = message;
     //returnArr['winner'] = winner + " wins";
 
-    $("#results").html(message + "<br />" + winner + " wins");
+    $("#results").html(message);
     $("#results").addClass("alert alert-danger");
 
     timerId = setTimeout(clearResults, 3000);
+}
+
+function removeChat() {
+    if (!playerExists && !oPlayerExists) {
+        chatRef.remove();
+        $("#chat-log").empty();
+        $(".post-login").hide();
+        $(".pre-login").show();
+    }
 }
 
 function clearResults() {
@@ -294,7 +304,7 @@ playersRef.on("value", function (snapshot) {
         }
     }
 
-    console.log(playerExists + "====" + oPlayerExists);
+    //console.log(playerExists + "====" + oPlayerExists);
 
     removeChat();
     // if(snapshot.child(playerNumber).val().choice)
@@ -313,15 +323,6 @@ playersRef.on("child_removed", function (snapshot) {
 
     removeChat();
 });
-
-function removeChat() {
-    if (!playerExists && !oPlayerExists) {
-        chatRef.remove();
-        $("#chat-log").empty();
-        $(".post-login").hide();
-        $(".pre-login").show();
-    }
-}
 
 chatRef.on('child_added', function (snapshot) {
     var ssObject = snapshot.val();
