@@ -68,80 +68,68 @@
             </div>
             <div class="row">
                 <div class="col-4 player">
-                    <h3 id="player-1">Waiting for Player 1</h3>
-                    <p class="stats p1-stats">
-                        <strong>Wins:</strong>
-                        <span id="p1-wins">0</span>
-                        <strong>Losses:</strong>
-                        <span id="p1-losses"></span>
-                    </p>
-                    <p class="selections p1-selections">
-                        <button id="rock" data-player="1" class="btn btn-default choice">Rock</button>
-                        <button id="paper" data-player="1" class="btn btn-default choice">Paper</button>
-                        <button id="scissors" data-player="1" class="btn btn-default choice">Scissors</button>
-                    </p>
-                    <p class="no-choice p1-no-choice">
-                        Pending Selection
-                    </p>
-                    <p class="choice-made p1-choice-made">
-                        Selection Made
-                    </p>
-                    <p class="choice-reveal p1-choice-reveal">
-
-                    </p>
+                    <div class="card bg-light border-warning m-2 player-box">
+                        <div class="card-header bg-warning border-warning text-left">
+                            <h4 id="player-1">Waiting for Player 1</h4>
+                        </div>
+                        <div class="card-body text-left player-box-body">
+                            <p class="stats p1-stats">
+                                <strong>Wins:</strong>
+                                <span id="p1-wins">0</span>
+                                <strong>Losses:</strong>
+                                <span id="p1-losses">0</span>
+                            </p>
+                            <p class="selections p1-selections">
+                                <button id="rock" class="btn btn-warning choice">Rock</button>
+                                <button id="paper" class="btn btn-warning choice">Paper</button>
+                                <button id="scissors" class="btn btn-warning choice">Scissors</button>
+                            </p>
+                            <p class="no-choice p1-no-choice">
+                                Pending Selection
+                            </p>
+                            <p class="choice-made p1-choice-made">
+                                Selection Made
+                            </p>
+                            <p class="choice-reveal p1-choice-reveal"></p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-4">
-                    <h3 id="results"></h3>
+                    <div id="results" role="alert"></div>
                 </div>
 
                 <div class="col-4 player">
-                    <h3 id="player-2">Waiting for Player 2</h3>
-                    <p class="stats p2-stats">
-                        <strong>Wins:</strong>
-                        <span id="p2-wins">0</span>
-                        <strong>Losses:</strong>
-                        <span id="p2-losses"></span>
-                    </p>
-                    <p class="selections p2-selections">
-                        <button id="rock" data-player="2" class="btn btn-default choice">Rock</button>
-                        <button id="paper" data-player="2" class="btn btn-default choice">Paper</button>
-                        <button id="scissors" data-player="2" class="btn btn-default choice">Scissors</button>
-                    </p>
-                    <p class="no-choice p2-no-choice">
-                        Pending Selection
-                    </p>
-                    <p class="choice-made p2-choice-made">
-                        Selection Made
-                    </p>
-                    <p class="choice-reveal p2-choice-reveal">
-
-                    </p>
+                    <div class="card bg-light border-warning m-2 player-box">
+                        <div class="card-header bg-warning border-warning text-left">
+                            <h4 id="player-2">Waiting for Player 2</h4>
+                        </div>
+                        <div class="card-body text-left player-box-body">
+                            <p class="stats p2-stats">
+                                <strong>Wins:</strong>
+                                <span id="p2-wins">0</span>
+                                <strong>Losses:</strong>
+                                <span id="p2-losses">0</span>
+                            </p>
+                            <p class="selections p2-selections">
+                                <button id="rock" class="btn btn-warning choice">Rock</button>
+                                <button id="paper" class="btn btn-warning choice">Paper</button>
+                                <button id="scissors" class="btn btn-warning choice">Scissors</button>
+                            </p>
+                            <p class="no-choice p2-no-choice">
+                                Pending Selection
+                            </p>
+                            <p class="choice-made p2-choice-made">
+                                Selection Made
+                            </p>
+                            <p class="choice-reveal p2-choice-reveal"></p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row post-login">
-                    <!--div class="col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title text-left">Chat</h3>
-                            </div>
-                            <ul id="chat-log" class="list-unstyled text-left">
-
-                            </ul>
-                            <form role="chat" class="panel-footer">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="chat">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" id="chat-btn">Send</button>
-                                    </span>
-                                </div>
-                            </form>
-                        </div>
-                    </div-->
-
-
-                    <div class="card bg-light mb-3 border-warning">
-                        <div class="card-header bg-warning border-warning text-left">
+                    <div class="card bg-light mb-3 border-warning chat-box">
+                        <div class="card-header text-left chat-header">
                             <h5>Chat</h5>
                         </div>
                         <div class="card-body text-left">
@@ -159,12 +147,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Topic Div or Fav Movies Div-->
-                <!--div class="row">
-                <div id="player_id1" class="col-6 mt-3">Waiting for player 1</div>
-                <div id="player_id2" class="col-6 mt-3">Waiting for player 2</div>
-            </div-->
             </div>
     </main>
     <span id="connected-viewers"></span>

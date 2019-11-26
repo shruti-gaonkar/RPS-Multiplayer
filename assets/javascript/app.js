@@ -229,6 +229,7 @@ function getWinner(p1Choice, p2Choice) {
     //returnArr['winner'] = winner + " wins";
 
     $("#results").html(message + "<br />" + winner + " wins");
+    $("#results").addClass("alert alert-danger");
 
     timerId = setTimeout(clearResults, 3000);
 }
@@ -237,6 +238,7 @@ function clearResults() {
     clearTimeout(timerId);
     $(".choice-reveal").text('').hide();
     $("#results").empty();
+    $("#results").removeClass("alert alert-danger");
 
     player1Obj.choice = "";
     console.log(player1Obj);

@@ -84,8 +84,27 @@ img{
   font-size: 0.9rem;
 }
 
-.card{
-  width:60rem;
+.chat-box{
+  max-width: 60rem;
+}
+
+.chat-header{
+  color:#000;
+}
+
+.player-box{
+  height:15rem;
+}
+
+.player-box-body{
+  color:#346689;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.choice-reveal{
+  text-align: center;
+  margin-top:2rem;
 }
 
 #chat{
@@ -96,6 +115,14 @@ img{
   height:10rem;
 }
 
+#results{
+  margin-top: 40px;
+  font-size: 1rem;
+}
+
+.card-body{
+  overflow: hidden;
+}
 .clearfix{
   content: " ";
   display: block;
