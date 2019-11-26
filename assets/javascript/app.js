@@ -169,9 +169,9 @@ function showWelcomeMessage() {
 }
 
 function getWinner(p1Choice, p2Choice) {
-    var scissorMsg = 'Scissor wins against paper';
-    var paperMsg = 'Paper wins against rock';
-    var rockMsg = 'Rock wins against scissor';
+    var scissorMsg = 'scissor wins against paper';
+    var paperMsg = 'paper wins against rock';
+    var rockMsg = 'rock wins against scissor';
     var message;
     var winner;
     var player1win = false;
@@ -223,7 +223,7 @@ function getWinner(p1Choice, p2Choice) {
                 player1Obj.losses++;
             }
         }
-        message += "<br />" + winner + " wins";
+        message += "<br />" + winner + " wins!!";
     }
 
     //returnArr['msg'] = message;
@@ -329,9 +329,9 @@ chatRef.on('child_added', function (snapshot) {
     var chatDiv = $("<div>");
     //console.log(ssObject.playerId + "===" + playerNumber);
     if (ssObject.playerId == playerNumber) {
-        chatDiv.addClass("chat-red-class");
+        chatDiv.addClass("alert alert-success chat-text");
     } else {
-        chatDiv.addClass("chat-blue-class");
+        chatDiv.addClass("alert alert-secondary chat-text");
     }
     chatDiv.text(ssObject.name + ": " + ssObject.text);
     $("#chat-log").append(chatDiv);

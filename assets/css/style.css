@@ -71,17 +71,10 @@ img{
   padding-top: 0.5em;
 }
 
-.chat-red-class{
-  background-color:#62CB65;
-  color:#000;
-  font-size: 0.9rem;
-}
-
-.chat-blue-class{
-  background-color:#e6e6e6;
-  color:#000;
-  font-size: 0.9rem;
-  font-size: 0.9rem;
+.chat-text{
+  padding: 0 0 0 5px;
+  font-size: 1rem;
+  margin:0.2rem;
 }
 
 .chat-box{
@@ -113,16 +106,19 @@ img{
 
 #chat-log{
   height:10rem;
+  overflow-y: scroll;
 }
 
 #results{
   margin-top: 40px;
   font-size: 1rem;
+  font-weight: bold;
 }
 
 .card-body{
   overflow: hidden;
 }
+
 .clearfix{
   content: " ";
   display: block;
