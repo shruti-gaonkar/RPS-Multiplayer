@@ -105,10 +105,18 @@ playersRef.child(2).child('status').on('value', function (ss) {
     //console.log("2===" + player2Online);
     console.log("1===" + player1Online + "==" + player2Online);
 });*/
+$("#nameId").on("change", function () {
+    $('.error').empty();
+});
 
 $("#btnSubmit").on("click", function (event) {
     event.preventDefault();
+    $(".error").empty();
     name = $("#nameId").val().trim();
+    if (!name) {
+        $(".error").append("Please enter your name");
+        return;
+    }
 
     player1Obj.name = name;
     player1Obj.status = true;

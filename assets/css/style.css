@@ -71,6 +71,13 @@ img{
   padding-top: 0.5em;
 }
 
+.error{
+  position:absolute;
+  font-size:1rem;
+  color:red;
+  margin-top:2rem;
+}
+
 .chat-text{
   padding: 0 0 0 5px;
   font-size: 1rem;
