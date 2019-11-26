@@ -177,7 +177,7 @@ $("#nameId").on("change", function () {
     $('.error').empty();
 });
 
-
+// if name entered then add in firebase
 $("#btnSubmit").on("click", function (event) {
     event.preventDefault();
     $(".error").empty();
@@ -190,22 +190,25 @@ $("#btnSubmit").on("click", function (event) {
     playerObj.name = name;
     playerObj.status = true;
 
+    //  check player exists
     if (!player1Online) {
         playerNumber = 1;
         otherPlayerNumber = 2;
     }
     else if (!player2Online) {
+        // if player 1 exists then the current player becomes no 2 player
         playerNumber = 2;
         otherPlayerNumber = 1;
     }
     else
         playerNumber = null;
 
+    // add in firebase    
     database.ref("/players/" + playerNumber).set(playerObj);
     database.ref("/players/" + playerNumber).onDisconnect().remove();
 });
 
-
+// if r,p,s is selected then save in firebase and show choice added for other player
 $(".choice").on("click", function () {
     if (!playerNumber) return;
 
@@ -221,6 +224,7 @@ $(".choice").on("click", function () {
     $(".stats").show();
 });
 
+// to save chat in firebase on click of send
 $("#btnSend").on("click", function (event) {
     event.preventDefault();
     chatRef.push({
@@ -240,11 +244,13 @@ $("#btnSend").on("click", function (event) {
 *************************** Start - user defined functions ***************************
 */
 
+// show the name form
 function showForm() {
     $(".post-login, .selections, .stats, .no-choice, .choice-made").hide();
     $(".pre-login").show();
 }
 
+// show welcome message
 function showWelcomeMessage() {
     $(".pre-login, .selections, .stats, .no-choice, .choice-made").hide();
     $(".post-login").show();
@@ -252,6 +258,7 @@ function showWelcomeMessage() {
     $("#player-number").text(playerNumber);
 }
 
+// r,p,s functionality
 function getWinner(p1Choice, p2Choice) {
     var scissorMsg = 'scissor wins against paper';
     var paperMsg = 'paper wins against rock';
@@ -316,6 +323,7 @@ function getWinner(p1Choice, p2Choice) {
     timerId = setTimeout(clearResults, 3000);
 }
 
+// remove chat from firebase if no players exists
 function removeChat() {
     if (!player1Name && !player2Name) {
         chatRef.remove();
@@ -325,6 +333,7 @@ function removeChat() {
     }
 }
 
+// clear results when there is a winner/lose/draw
 function clearResults() {
     clearTimeout(timerId);
     $(".choice-reveal").text('').hide();
