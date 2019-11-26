@@ -15,34 +15,51 @@
     <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
 
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/fontawesome/css/all.css">
 </head>
 
 <body class="d-flex flex-column">
+    <header>
+
+        <div class="nav-header text-center">
+            ROCK, PAPER, SCISSORS
+        </div>
+
+    </header>
     <main id="main-content">
-        <div class="container">
+        <div class="container page-content">
             <!--div class="col-xs-12 pre-connection">
                 Connecting...
             </div-->
 
             <div class="row pre-login">
-                <form id="frm" class="m-auto">
+                <!--form id="frm" class="m-auto">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nameId">Enter your name</label>
                             <input type="text" class="form-control" id="nameId" placeholder="">
                         </div>
                         <div class="col-md-6" style="margin-top:35px;">
-                            <button id="btnSubmit" class="btn btn-primary">Submit</button>
+                            <button id="btnSubmit" class="btn btn-warning">Submit</button>
                         </div>
                     </div>
+                </form-->
+
+                <form class="form-inline m-auto p-3">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="nameId" class="sr-only">Enter your name</label>
+                        <input type="text" class="form-control" id="nameId" placeholder="Enter your name"
+                            autocomplete="off">
+                    </div>
+                    <button id="btnSubmit" type="submit" class="btn btn-warning mb-2">Submit</button>
                 </form>
 
             </div>
             <div>
-                <div class="col-xs-12 post-login">
+                <div class="col-12 post-login">
                     <h2>Hi,
                         <span id="player-name-display"></span>! You are player
-                        <span id="player-number"></span>.
+                        <span id="player-number"></span>
                     </h2>
                 </div>
                 <div class="col-xs-12 pending-login">
@@ -103,7 +120,7 @@
                 </div>
 
                 <div class="row post-login">
-                    <div class="col-xs-12">
+                    <!--div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title text-left">Chat</h3>
@@ -120,8 +137,29 @@
                                 </div>
                             </form>
                         </div>
+                    </div-->
+
+
+                    <div class="card bg-light mb-3 border-warning">
+                        <div class="card-header bg-warning border-warning text-left">
+                            <h5>Chat</h5>
+                        </div>
+                        <div class="card-body text-left">
+                            <p id="chat-log" class="card-text"></p>
+                        </div>
+                        <div class="card-footer bg-transparent border-warning">
+                            <form class="form-inline m-auto p-3">
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="chat" class="sr-only">Enter your message</label>
+                                    <input type="text" class="form-control" id="chat" placeholder="Enter your message"
+                                        autocomplete="off">
+                                </div>
+                                <button id="btnSend" type="submit" class="btn btn-warning mb-2">Send</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
                 <!-- Topic Div or Fav Movies Div-->
                 <!--div class="row">
                 <div id="player_id1" class="col-6 mt-3">Waiting for player 1</div>

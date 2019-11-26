@@ -143,7 +143,7 @@ $(".choice").on("click", function () {
     $(".stats").show();
 });
 
-$("#chat-btn").on("click", function (event) {
+$("#btnSend").on("click", function (event) {
     event.preventDefault();
     chatRef.push({
         playerId: playerNumber,
