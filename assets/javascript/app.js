@@ -64,7 +64,8 @@ connectionsRef.on("value", function (snap) {
     //console.log("1===" + player1Online);
     $("#player_msg").text("Hi " + newPlayer.name + "! You are player 1.");
 });*/
-var player1Choice, player2Choice, timerId, player1Wins, player1Losses, player2Wins, player2Losses;
+var player1Choice, player2Choice, timerId, player1Wins, player1Losses, player2Wins, player2Losses,
+    playerExists, oPlayerExists;
 playersRef.child(1).on("value", function (snapshot) {
     player1Name = '';
     if (snapshot.val()) {
@@ -250,8 +251,8 @@ playersRef.on("value", function (snapshot) {
         showWelcomeMessage();
     }
 
-    var playerExists = snapshot.child(playerNumber).exists();
-    var oPlayerExists = snapshot.child(otherPlayerNumber).exists();
+    playerExists = snapshot.child(playerNumber).exists();
+    oPlayerExists = snapshot.child(otherPlayerNumber).exists();
     //var playerChoice = snapshot.child(playerNumber).val().choice;
     //var oPlayerChoice = snapshot.child(otherPlayerNumber).val().choice;
     if (player1Choice && player2Choice) {
@@ -291,10 +292,9 @@ playersRef.on("value", function (snapshot) {
         }
     }
 
-    if (!player1Online && !player2Online) {
-        chatRef.remove();
-        $("#chat-log").empty();
-    }
+    console.log(playerExists + "====" + oPlayerExists);
+
+    removeChat();
     // if(snapshot.child(playerNumber).val().choice)
     /*if (player1Name && player2Name) {
         $(".selections").show();
@@ -309,11 +309,17 @@ playersRef.on("child_removed", function (snapshot) {
         text: snapshot.val().name + " left"
     });
 
-    if (!player1Online && !player2Online) {
+    removeChat();
+});
+
+function removeChat() {
+    if (!playerExists && !oPlayerExists) {
         chatRef.remove();
         $("#chat-log").empty();
+        $(".post-login").hide();
+        $(".pre-login").show();
     }
-});
+}
 
 chatRef.on('child_added', function (snapshot) {
     var ssObject = snapshot.val();
